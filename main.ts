@@ -72,9 +72,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Specimen_11, function (sprite, o
         kill_credit = "demon"
     }
 })
-function reset_room () {
-	
-}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Monster_1, function (sprite, otherSprite) {
     if (guard_cooldown) {
         health_player.value += -45
@@ -2471,7 +2468,7 @@ scene.onOverlapTile(SpriteKind.Shadow_Animal, assets.tile`myTile2`, function (sp
     })
 })
 function allRoomsBelowThreshold () {
-    if (gel_room < 1 && bug_room < 1 && ringu_room < 1 && bab_room < 1 && ben_room < 1 && wall_room < 1 && deer_room < 1 && parasite_room < 1 && demon_room < 1 && man_room < 1 && siren_room < 1 && face_room < 1 && otto_room < 1 && spooper_room == 0 && tirsiak_room < 1 && lisa_room < 1 && guard_room < 1 && bag_room < 1 && baby_room < 1 && hanged_room < 1 && cow_room < 1 && bekka_room < 1 && husks_room < 1 && charles_room < 1 && hooked_room < 1) {
+    if (gel_room < 1 && bug_room < 1 && ringu_room < 1 && bab_room < 1 && ben_room < 1 && wall_room < 1 && deer_room < 1 && parasite_room < 1 && demon_room < 1 && man_room < 1 && siren_room < 1 && face_room < 1 && otto_room < 1 && (spooper_room < -5 || spooper_room == 0) && tirsiak_room < 1 && lisa_room < 1 && guard_room < 1 && bag_room < 1 && baby_room < 1 && hanged_room < 1 && cow_room < 1 && bekka_room < 1 && husks_room < 1 && charles_room < 1 && hooked_room < 1) {
         chase_picking_yippee = "horror"
     }
 }
@@ -3111,7 +3108,7 @@ function extra_menu2 () {
             terminal_entry = game.askForString("ENTER ENTRY", 24)
             terminal_entry_get(terminal_entry)
         } else if (selectedIndex == 1) {
-            game.showLongText("Original game Spooky's Jump Scare Mansion by LAG Studios, recreated by Longlinh.  ", DialogLayout.Center)
+            game.showLongText("Original game Spooky's Jump Scare Mansion by LAG Studios, recreated by Longlinh. Many assets are from Makecode Arcade's asset library.  ", DialogLayout.Center)
         } else {
             game.reset()
         }
@@ -3146,6 +3143,7 @@ function game_yes () {
         . . . . . f c c c c f . . . . . 
         . . . . . f f f f f f . . . . . 
         `, SpriteKind.Player)
+    init_rooms()
     canFight = true
     controller.moveSprite(mySprite)
     scene.cameraFollowSprite(mySprite)
@@ -3307,6 +3305,10 @@ function calculate_chance (room_number: number) {
         x_number = 0
         console.logValue("chance for a chase", "0%")
         return
+    } else if (room_number == 122) {
+        x_number = 10000
+        console.logValue("chance for a chase", "100%")
+        return
     }
     room_number = Math.round(room_number / 50) * 50
     t_number = (room_number - 50) / 10000
@@ -3317,7 +3319,7 @@ function calculate_chance (room_number: number) {
     x_number = Math.round(ease_number * 10000)
     // Pity bonus:
     // +0.5% every 3-room roll without a chase
-    x_number += rooms_since_last_chase * 75
+    x_number += rooms_since_last_chase * 75 + room_number * 2
     // Cap at 100%
     x_number = Math.min(10000, x_number)
     console.logValue("chance for a chase", "" + x_number / 100 + "%")
@@ -3701,9 +3703,11 @@ function settings_menu_ () {
             } else {
                 game.splash("Memories persist.", "Memories persist.")
             }
-        } else {
+        } else if (selectedIndex == 3) {
             room_skip = game.askForNumber("Enter room number that you want to skip to.", 4)
             blockSettings.writeNumber("skip", room_skip)
+        } else {
+        	
         }
         game.reset()
     })
@@ -5051,24 +5055,28 @@ function tick_rooms () {
 function the_two_enemies_that_has_their_own_room () {
     // I was planning to put the mansion but whatever
     if (info.score() == 610) {
+        music.stopAllSounds()
         enemy_remove_cherry_picking("pentagram")
         chase_picking_yippee = "wall"
         wall_room = randint(10, 19)
     } else if (info.score() > 610) {
         if (info.score() % 610 == 0) {
             if (Math.percentChance(90)) {
+                music.stopAllSounds()
                 enemy_remove_cherry_picking("pentagram")
                 chase_picking_yippee = "wall"
                 wall_room = randint(16, 19)
             }
         }
     } else if (info.score() == 910) {
+        music.stopAllSounds()
         enemy_remove_cherry_picking("pentagram")
         chase_picking_yippee = "siren"
         siren_room = randint(20, 39)
     } else if (info.score() > 910) {
         if (info.score() % 910 == 0) {
             if (Math.percentChance(90)) {
+                music.stopAllSounds()
                 enemy_remove_cherry_picking("pentagram")
                 chase_picking_yippee = "siren"
                 wall_room = randint(30, 39)
@@ -5823,6 +5831,7 @@ function init_rooms () {
     husks_room = -10
     charles_room = -10
     hooked_room = -10
+    chase_picking_yippee = "horror"
 }
 function baby_head () {
     head_cooldown = true
@@ -5912,7 +5921,7 @@ function song_pull (chase_current: string) {
         } else if (chase_current == "bug") {
             music.play(music.createSong(hex`0078000408040206001c00010a006400f401640000040000000000000000000000000000000002180000002000011d20004000011d40006000011e60008000011e09010e02026400000403780000040a000301000000640001c80000040100000000640001640000040100000000fa0004af00000401c80000040a00019600000414000501006400140005010000002c0104dc00000401fa0000040a0001c8000004140005d0076400140005d0070000c800029001f40105c201f4010a0005900114001400039001000005c201f4010500058403050032000584030000fa00049001000005c201f4010500058403c80032000584030500640005840300009001049001000005c201f4010500058403c80064000584030500c8000584030000f40105ac0d000404a00f00000a0004ac0d2003010004a00f0000280004ac0d9001010004a00f0000280002d00700040408070f0064000408070000c80003c800c8000e7d00c80019000e64000f0032000e78000000fa00032c01c8000ee100c80019000ec8000f0032000edc000000fa0003f401c8000ea901c80019000e90010f0032000ea4010000fa0001c8000004014b000000c800012c01000401c8000000c8000190010004012c010000c80002c800000404c8000f0064000496000000c80002c2010004045e010f006400042c010000640002c409000404c4096400960004f6090000f40102b80b000404b80b64002c0104f40b0000f401022003000004200300040a000420030000ea01029001000004900100040a000490010000900102d007000410d0076400960010d0070000c8003000000001000112100011000113200021000112300031000113400041000112500051000113600061000112700071000113`), music.PlaybackMode.UntilDone)
         } else if (chase_current == "ringu") {
-            music.play(music.createSong(hex`0055000408020200001c00010a006400f4016400000400000000000000000000000000050000043c0000000800010d08000c00011410001400010f18001c00011420002400011628002c00011130003400011634003800011838003c0001123c004000010f06001c00010a006400f4016400000400000000000000000000000000000000023c0000000800011908000c00011d10001400011e18002000011d20002400012228003000012030003400012234003800012438003c00011e3c0040000119`), music.PlaybackMode.UntilDone)
+            music.play(music.createSong(hex`0055000408020200001c00010a006400f4016400000400000000000000000000000000050000043c0000000400010d08000c00010d10001400010d14001800010f18001c00011120002400011124002800010f28002c0001112c003000011230003400011406001c00010a006400f4016400000400000000000000000000000000000000023c0000000400011908000c00011910001400011914001800011b18001c00011d20002400011d24002800011b28002c00011d2c003000011e300034000120`), music.PlaybackMode.UntilDone)
         } else if (chase_current == "bab") {
             music.play(music.createSong(hex`00be000408020205001c000f0a006400f4010a00000400000000000000000000000000000000020c0000002000012220004000012209010e02026400000403780000040a000301000000640001c80000040100000000640001640000040100000000fa0004af00000401c80000040a00019600000414000501006400140005010000002c0104dc00000401fa0000040a0001c8000004140005d0076400140005d0070000c800029001f40105c201f4010a0005900114001400039001000005c201f4010500058403050032000584030000fa00049001000005c201f4010500058403c80032000584030500640005840300009001049001000005c201f4010500058403c80064000584030500c8000584030000f40105ac0d000404a00f00000a0004ac0d2003010004a00f0000280004ac0d9001010004a00f0000280002d00700040408070f0064000408070000c80003c800c8000e7d00c80019000e64000f0032000e78000000fa00032c01c8000ee100c80019000ec8000f0032000edc000000fa0003f401c8000ea901c80019000e90010f0032000ea4010000fa0001c8000004014b000000c800012c01000401c8000000c8000190010004012c010000c80002c800000404c8000f0064000496000000c80002c2010004045e010f006400042c010000640002c409000404c4096400960004f6090000f40102b80b000404b80b64002c0104f40b0000f401022003000004200300040a000420030000ea01029001000004900100040a000490010000900102d007000410d0076400960010d0070000c80031001000110001151400150001151800190001151c001d0001153000310001153400350001153800390001153c003d00021315`), music.PlaybackMode.UntilDone)
         } else if (chase_current == "ben") {
