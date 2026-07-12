@@ -5790,7 +5790,7 @@ function demon () {
         sprites.destroyAllSpritesOfKind(SpriteKind.Specimen_11)
         sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
         tiles.placeOnRandomTile(door_invisible, assets.tile`myTile1`)
-        timer.after(1000, function () {
+        timer.after(670, function () {
             demon_cooldown = true
             specimen11 = sprites.create(img`
                 . . . . . . . . . . . . . . . . 
@@ -6591,6 +6591,7 @@ let specimen_6: Sprite = null
 let ben_cooldown = false
 let title2: TextSprite = null
 let title: TextSprite = null
+music.stopAllSounds()
 settings_check()
 color.startFade(color.Black, color.originalPalette, 100)
 scene.setBackgroundImage(img`
