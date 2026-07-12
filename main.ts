@@ -6785,7 +6785,7 @@ miniMenu.createMenuItem("Settings", img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `),
-miniMenu.createMenuItem("Extra", img`
+miniMenu.createMenuItem("Extras", img`
     . . . . . . . . . . . . . . . . 
     . . . . . . 6 6 6 6 . . . . . . 
     . . . . 6 6 6 5 5 6 6 6 . . . . 
