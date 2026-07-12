@@ -5787,7 +5787,7 @@ function ringu () {
 }
 function demon () {
     demon_cooldown = false
-    sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Specimen_11)
     sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
     if (demon_chase) {
         demon_cooldown = false
@@ -6090,7 +6090,121 @@ function spooper_ () {
     spooper_spores = false
     sprites.destroyAllSpritesOfKind(SpriteKind.Unknown_specimen_3)
     if (spooper_chase) {
-    	
+        if (spooper_room < 0) {
+            timer.after(500, function () {
+                if (spooper_room == -5) {
+                    spooper = sprites.create(img`
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . 5 5 5 5 . . . . . . 
+                        . . . . . . 5 5 5 5 . . . . . . 
+                        . . . . . 5 5 5 5 5 5 . . . . . 
+                        . . . . . 5 f 5 5 f 5 . . . . . 
+                        . . . . . 5 5 5 5 5 5 . . . . . 
+                        . . . . 5 5 5 5 5 5 5 5 . . . . 
+                        . . . 5 5 5 5 5 5 5 5 5 5 . . . 
+                        . . . 5 5 5 5 5 5 5 5 5 5 . . . 
+                        . . . 5 5 5 5 5 5 5 5 5 5 . . . 
+                        . . . . 5 5 5 5 5 5 5 5 . . . . 
+                        . . . . 5 5 5 5 5 5 5 5 . . . . 
+                        . . . . . 5 5 5 5 5 5 . . . . . 
+                        . . . . . 5 5 5 5 5 5 . . . . . 
+                        . . . . . f c c c c f . . . . . 
+                        . . . . . f f f f f f . . . . . 
+                        `, SpriteKind.Unknown_specimen_3)
+                } else if (spooper_room == -4) {
+                    spooper = sprites.create(img`
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . 5 5 4 5 . . . . . . 
+                        . . . . . . 4 4 4 5 . . . . . . 
+                        . . . . . 5 5 5 5 5 5 . . . . . 
+                        . . . . . 5 f 5 5 f 5 . . . . . 
+                        . . . . . 5 5 5 5 5 5 . . . . . 
+                        . . . . 5 5 b b 5 5 4 5 . . . . 
+                        . . . 5 5 b b 5 4 5 4 4 5 . . . 
+                        . . . 5 4 4 5 5 4 4 5 4 5 . . . 
+                        . . . 5 5 5 4 5 b b 5 5 4 . . . 
+                        . . . . 5 4 4 5 b 4 5 5 . . . . 
+                        . . . . 4 4 5 4 4 4 4 5 . . . . 
+                        . . . . . 5 4 4 5 5 5 . . . . . 
+                        . . . . . 4 4 5 5 5 5 . . . . . 
+                        . . . . . f c c c c f . . . . . 
+                        . . . . . f f f f f f . . . . . 
+                        `, SpriteKind.Unknown_specimen_3)
+                } else if (spooper_room == -3) {
+                    spooper = sprites.create(img`
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . 5 5 4 5 . . . . . . 
+                        . . . . . . 4 4 4 5 . . . . . . 
+                        . . . . . 5 5 5 5 5 5 . . . . . 
+                        . . . . . 5 f 5 5 f 5 . . . . . 
+                        . . . . . 5 f 5 5 f 5 . . . . . 
+                        . . . . 5 5 b 2 5 5 4 5 . . . . 
+                        . . . 5 5 2 2 2 4 5 4 4 5 . . . 
+                        . . . 5 2 4 5 5 4 4 5 4 5 . . . 
+                        . . . 5 5 5 4 5 b 2 2 5 4 . . . 
+                        . . . . 5 4 4 2 2 2 5 5 . . . . 
+                        . . . . 4 4 5 2 4 4 4 5 . . . . 
+                        . . . . . 5 4 4 5 5 5 . . . . . 
+                        . . . . . 4 4 5 5 5 5 . . . . . 
+                        . . . . . f c c c c f . . . . . 
+                        . . . . . f f f f f f . . . . . 
+                        `, SpriteKind.Unknown_specimen_3)
+                } else if (spooper_room == -2) {
+                    spooper = sprites.create(img`
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . 5 5 4 5 . . . . . . 
+                        . . . . . . 4 4 4 5 . . . . . . 
+                        . . . . . 5 5 5 5 5 5 . . . . . 
+                        . . . . . 5 f 5 5 f 5 . . . . . 
+                        . . . . . 5 f 5 5 f 5 . . . . . 
+                        . . . . 5 5 b 2 2 2 4 5 . . . . 
+                        . . . 5 5 2 2 2 2 3 3 4 5 . . . 
+                        . . . 5 2 2 2 3 3 3 5 4 5 . . . 
+                        . . . 5 2 3 3 3 b 2 2 5 4 . . . 
+                        . . . . 5 4 4 2 2 2 3 5 . . . . 
+                        . . . . 4 4 5 2 2 3 3 5 . . . . 
+                        . . . . . 2 2 3 3 5 5 . . . . . 
+                        . . . . . 4 4 5 5 5 5 . . . . . 
+                        . . . . . f c c c c f . . . . . 
+                        . . . . . f f f f f f . . . . . 
+                        `, SpriteKind.Unknown_specimen_3)
+                } else if (spooper_room == -1) {
+                    spooper = sprites.create(img`
+                        . . . . . . . . . . . . . . . . 
+                        . . . . . . 5 5 4 5 . . . . . . 
+                        . . . . . . 4 2 2 2 . . . . . . 
+                        . . . . . 5 2 2 2 5 5 . . . . . 
+                        . . . . . 5 f 5 5 f 5 . . . . . 
+                        . . . . . 5 f 5 5 f 5 . . . . . 
+                        . . . . 5 5 b 2 2 2 4 5 . . . . 
+                        . . . 5 5 2 2 2 2 3 2 4 5 . . . 
+                        . . . 5 2 2 2 3 2 2 2 2 5 . . . 
+                        . . . 5 2 3 2 1 1 4 4 5 4 . . . 
+                        . . . . 2 2 1 f f 1 2 5 . . . . 
+                        . . . . 4 4 5 1 1 2 2 5 . . . . 
+                        . . . . . 2 2 3 2 2 2 . . . . . 
+                        . . . . . 4 2 2 2 3 5 . . . . . 
+                        . . . . . f 2 3 3 c f . . . . . 
+                        . . . . . 2 3 3 f f f . . . . . 
+                        `, SpriteKind.Unknown_specimen_3)
+                    spooper_room += randint(30, 39)
+                }
+                tiles.placeOnRandomTile(spooper, assets.tile`myTile1`)
+                spooper_room += 1
+                spooper_spores = false
+            })
+        } else if (spooper_room > 0) {
+            spooper_room += -1
+            spooper_spores = true
+            for (let value12 of tiles.getTilesByType(assets.tile`myTile`)) {
+                tiles.setTileAt(value12, assets.tile`myTile50`)
+            }
+        } else if (spooper_room == 0) {
+            spooper_spores = false
+        } else {
+            spooper_room += 1
+            spooper_spores = false
+        }
     }
 }
 function mansion_man_search (doorX: number, doorY: number, basement: boolean) {
@@ -6293,6 +6407,7 @@ let angle_to_lisa = 0
 let dylisa = 0
 let dxlisa = 0
 let hanged_difference = 0
+let spooper: Sprite = null
 let spooper_spores = false
 let spooper_chase = false
 let fur_elise: music.Playable = null
