@@ -1191,6 +1191,32 @@ function kill_credit_get () {
     }
 }
 function deathinsert3 () {
+    game.setDialogFrame(img`
+        ..bbbbbbbbbbbbbbbbbbbb..
+        .b11bb11bb11bb11bb11bbb.
+        bbb11bb11bb11bb11bb11b1b
+        bb1bbbbbbbbbbbbbbbbbb11b
+        b11bb11111111111111bb1bb
+        b1bb1111111111111111bbbb
+        bbbb1111111111111111bb1b
+        bb1b1111111111111111b11b
+        b11b1111111111111111b1bb
+        b1bb1111111111111111bbbb
+        bbbb1111111111111111bb1b
+        bb1b1111111111111111b11b
+        b11b1111111111111111b1bb
+        b1bb1111111111111111bbbb
+        bbbb1111111111111111bb1b
+        bb1b1111111111111111b11b
+        b11b1111111111111111b1bb
+        b1bb1111111111111111bbbb
+        bbbb1111111111111111bb1b
+        bb1bb11111111111111bb11b
+        b11bbbbbbbbbbbbbbbbbb1bb
+        b1b11bb11bb11bb11bb11bbb
+        .bbb11bb11bb11bb11bb11b.
+        ..bbbbbbbbbbbbbbbbbbbb..
+        `)
     death_quotes.insertAt(death_quotes.length, "DEATH IS NO ESCAPE")
     death_quotes.insertAt(death_quotes.length, "You suffered the bite of 87.")
     death_quotes.insertAt(death_quotes.length, `BEYOND THAT DOOR IS ANOTHER WORLD.
@@ -3108,7 +3134,7 @@ function extra_menu2 () {
             terminal_entry = game.askForString("ENTER ENTRY", 24)
             terminal_entry_get(terminal_entry)
         } else if (selectedIndex == 1) {
-            game.showLongText("Original game Spooky's Jump Scare Mansion by LAG Studios, recreated by Longlinh. Many assets are from Makecode Arcade's asset library.  ", DialogLayout.Center)
+            game.showLongText("Original game Spooky's Jump Scare Mansion by LAG Studios, recreated by Longlinh. Many assets are from Makecode Arcade's asset library. 2 death quotes from Monster 1 and Monster 2 were taken from SJSM Project Recode by Spook Lass. Monster 3's death quote is written by Longlinh. EVery single other death quote is from the original game.  ", DialogLayout.Center)
         } else {
             game.reset()
         }
@@ -3303,11 +3329,11 @@ function calculate_chance (room_number: number) {
     let rooms_since_last_chase = 0
     if (room_number < 50) {
         x_number = 0
-        console.logValue("chance for a chase", "0%")
+        console.logValue("chance", "0%")
         return
     } else if (room_number == 122) {
         x_number = 10000
-        console.logValue("chance for a chase", "100%")
+        console.logValue("forced chase at", room_number)
         return
     }
     room_number = Math.round(room_number / 50) * 50
@@ -3322,7 +3348,7 @@ function calculate_chance (room_number: number) {
     x_number += rooms_since_last_chase * 75 + room_number * 2
     // Cap at 100%
     x_number = Math.min(10000, x_number)
-    console.logValue("chance for a chase", "" + x_number / 100 + "%")
+    console.logValue("chance", "" + x_number / 100 + "%")
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile29`, function (sprite, location) {
     if (library_key) {
