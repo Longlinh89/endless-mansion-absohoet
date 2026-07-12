@@ -1,6 +1,6 @@
 {
     "name": "Endless Mansion...?",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "A recreation of Spooky's Jump Scare mansion's Endless Mode! Made by Longlinh.",
     "dependencies": {
         "device": "*",
